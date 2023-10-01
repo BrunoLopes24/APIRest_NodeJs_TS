@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "//coment1": "Corre em Desenvolvimento",
     "start": "npx ts-node-dev ./src/index.ts",
-    "//coment2": "Corre em Produção",
     "production": "node ./dist/index.js",
     "postinstall": "tsc",
     "test": "jest"
