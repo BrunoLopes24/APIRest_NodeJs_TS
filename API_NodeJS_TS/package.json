@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "//coment1": "Corre em Desenvolvimento",
-    "start": "npx ts-node-dev ./src/index.ts",
+    "start": "npx ts-node-dev ./src/index.js",
     "//coment2": "Corre em Produção",
-    "production": "node ./dist/index.js",
-    "postinstall": "npx",
+    "production": "npm run build && npm start",
+    "build": "tsc",
     "test": "jest"
   },
   "keywords": [],
