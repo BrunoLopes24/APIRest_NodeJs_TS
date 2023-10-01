@@ -6,7 +6,7 @@ const router = Router();
 
 //Endpoint "padrão" onde mostra o server a funcionar
 router.get('/', (req,res) => {
-    return res.send('Servidor a funcionar!');
+    return res.send(`Servidor a funcionar na porta ${router.get('port')}`);
 } );
 
 // endpoint,middleware,controller
