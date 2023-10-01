@@ -8,7 +8,7 @@
     "start": "npx ts-node-dev ./src/index.ts",
     "//coment2": "Corre em Produção",
     "production": "node ./dist/index.js",
-    "postinstall": "tsc",
+    "postinstall": "npx",
     "test": "jest"
   },
   "keywords": [],
