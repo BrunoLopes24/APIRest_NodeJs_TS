@@ -1,3 +1,6 @@
+/* Providers são classes que fornecem serviços para outros componentes do aplicativo, como controladores. Esses serviços podem incluir, por exemplo, acesso a bancos de dados, autenticação de usuários, gerenciamento de sessões, entre outros. */
+
+
 import { EtableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
 import { ICidades } from '../../models';
