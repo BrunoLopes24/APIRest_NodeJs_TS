@@ -1,0 +1,8 @@
+SQL - Forma mais básica mas mais complexa (manutenção etc..)
+select * from cidades
+
+Query Builder -
+knex('cidade').select('*')
+knex('cidade').insert({
+    nome: 'Leiria'
+})
