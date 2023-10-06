@@ -8,7 +8,7 @@ describe('Cidades - UpdateById', () => {
 
     it('Actualiza registo', async () => {  // Um cenário de teste
         const res1 = await testServer
-            .post('/cidades/')
+            .post('/cidades')
             .send({
                 nome: 'Porto'
             });

@@ -2,9 +2,11 @@ import { Request, RequestHandler, Response } from 'express';
 import * as yup from 'yup';
 import { validation } from '../../middleware'; // Importa a validação do middleware
 import { StatusCodes } from 'http-status-codes';
+import { CidadesProvider } from '../../db/providers/cidades';
 
 
 interface IqueryPops {  // Serão todos os parametros a receber no query params
+    id?: number;
     page?: number;
     limit?: number;
     filter?: string;
@@ -13,6 +15,7 @@ interface IqueryPops {  // Serão todos os parametros a receber no query params
 
 export const getAllValidation = validation((getSchema) => ({
     query: getSchema<IqueryPops>(yup.object().shape({
+        id: yup.number().integer().default(0),
         page: yup.number().moreThan(0),
         limit: yup.number().moreThan(0),
         filter: yup.string(),
@@ -21,12 +24,25 @@ export const getAllValidation = validation((getSchema) => ({
 
 
 export const getAll = async (req: Request< {}, {}, {}, IqueryPops>, res: Response) =>{
-    res.setHeader('accss-control-expose-headers', 'x-total-count'); //Diz que o x-total-count fica disponivel (exposto) ao front
-    res.setHeader('x-total-count', 1); // e que começa por 1.
+    const result = await CidadesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || '', Number(req.query.id));
+    const count = await CidadesProvider.count(req.query.filter);
 
-    return res.status(StatusCodes.OK) 
-        .json([{ //Array de OBJECTO
-            id: 1,
-            nome: 'Porto'
-        }]);
+    if (result instanceof Error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: result.message
+            }
+        });
+    } else if (count instanceof Error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: count.message
+            }
+        });
+    }
+
+    res.setHeader('access-control-expose-headers', 'x.total-count');
+    res.setHeader('x-total-count', count);
+
+    return res.status(StatusCodes.OK).json(result);
 };
