@@ -5,6 +5,7 @@ import {beforeAll, afterAll} from '@jest/globals';
 
 beforeAll( async () => { // Antes de executar os testes, fará o migration das tabelas.
     await Knex.migrate.latest();
+    await Knex.seed.run();
 });
 
 afterAll (async () => {

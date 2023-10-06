@@ -11,7 +11,7 @@ export const development: Knex.Config  = {
         directory: path.resolve(__dirname, '..', 'migrations')
     },
     seeds: {
-        directory: path.resolve(__dirname,'..', 'seeds')
+        directory: path.resolve(__dirname,'..', 'seeds') // Função que automatiza inserção de muitos dados numa tabela de uma vez só.
     },
     pool:{
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
