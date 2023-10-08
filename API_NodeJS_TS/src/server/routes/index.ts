@@ -1,6 +1,7 @@
 // Ficheiro onde ficam as endpoints.
 import { Router } from 'express'; //Importa Middleware
 import { CidadesController, PessoasController, UtilizadoresController } from '../controllers';
+import { ensureAuth } from '../middleware';
 const router = Router();
 
 
@@ -13,21 +14,27 @@ router.get('/', (req,res) => {
 
 
 // CIDADES
-router.get('/cidades', CidadesController.getAllValidation ,CidadesController.getAll);
-router.get('/cidades/:id', CidadesController.getByIdvalidation ,CidadesController.getById);
-router.put('/cidades/:id', CidadesController.updateByIdvalidation ,CidadesController.updateById);
-router.post('/cidades', CidadesController.createValidation ,CidadesController.create);
-router.delete('/cidades/:id', CidadesController.deleteByIdvalidation ,CidadesController.deleteById);
+router.get('/cidades', ensureAuth, CidadesController.getAllValidation ,CidadesController.getAll);
+router.get('/cidades/:id', ensureAuth, CidadesController.getByIdvalidation ,CidadesController.getById);
+router.put('/cidades/:id', ensureAuth, CidadesController.updateByIdvalidation ,CidadesController.updateById);
+router.post('/cidades', ensureAuth, CidadesController.createValidation ,CidadesController.create);
+router.delete('/cidades/:id', ensureAuth, CidadesController.deleteByIdvalidation ,CidadesController.deleteById);
 
 // PESSOAS 
-router.get('/pessoas', PessoasController.getAllValidation, PessoasController.getAll);
-router.get('/pessoas/:id', PessoasController.getByIdvalidation ,PessoasController.getById);
-router.put('/pessoas/:id', PessoasController.updateByIdvalidation ,PessoasController.updateById);
-router.post('/pessoas', PessoasController.createValidation ,PessoasController.create);
-router.delete('/pessoas/:id', PessoasController.deleteByIdvalidation ,PessoasController.deleteById);
+router.get('/pessoas', ensureAuth, PessoasController.getAllValidation, PessoasController.getAll);
+router.get('/pessoas/:id', ensureAuth, PessoasController.getByIdvalidation ,PessoasController.getById);
+router.put('/pessoas/:id', ensureAuth, PessoasController.updateByIdvalidation ,PessoasController.updateById);
+router.post('/pessoas', ensureAuth, PessoasController.createValidation ,PessoasController.create);
+router.delete('/pessoas/:id', ensureAuth, PessoasController.deleteByIdvalidation ,PessoasController.deleteById);
 
 // UTILIZADORES
 router.post('/entrar', UtilizadoresController.signInValidation ,UtilizadoresController.signIn);
 router.post('/registar', UtilizadoresController.signUpValidation ,UtilizadoresController.signUp);
+
+
+
+
+
+
 
 export default router; //Exporta o router para ficheiro app.ts
