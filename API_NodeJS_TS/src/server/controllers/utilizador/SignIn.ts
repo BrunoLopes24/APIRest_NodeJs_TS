@@ -4,6 +4,7 @@ import { validation } from '../../middleware'; // Importa a validação do middl
 import { StatusCodes } from 'http-status-codes';
 import { IUtilizador } from '../../db/models';
 import { UtilizadoresProvider } from '../../db/providers/utilizadores';
+import { PasswordCrypto } from '../../services/PasswordCrypto';
 
 
 // Middleware de validação (JSON Body)
@@ -32,7 +33,9 @@ export const signIn= async (req: Request<{},{},IBodyProps>, res: Response) =>{
         });
     }
 
-    if (password !== result.password){
+    const passMatch = await PasswordCrypto.verifyPassword(password, result.password);
+
+    if (!passMatch){
         return res.status(StatusCodes.UNAUTHORIZED).json({
             errors:{
                 default: 'Email ou senha são inválidos'
