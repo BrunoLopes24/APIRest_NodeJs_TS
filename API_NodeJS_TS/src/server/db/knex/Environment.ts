@@ -40,7 +40,7 @@ export const production: Knex.Config  = {
     connection: {
         host: process.env.DATABASE_HOST,
         user: process.env.DATABASE_USER,
-        database: process.env.DATABASE_NAME,
+        //database: process.env.DATABASE_NAME,
         password: process.env.DATABASE_PASSWORD,
         port: Number(process.env.DATABASE_PORT) || 5432, // Porta 5432 é padrão do POSTGR.
         ssl: {rejectUnauthorized: false}
